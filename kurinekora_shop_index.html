@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>くりねこらの通販サイト</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f5f5f5;padding:20px}
+.container{max-width:650px;margin:auto;background:white;padding:20px;border-radius:15px;box-shadow:0 0 10px rgba(0,0,0,.2)}
+input,select,button{width:100%;padding:10px;margin-top:8px;box-sizing:border-box}
+button{cursor:pointer}
+h1{text-align:center}
+#result{margin-top:15px;font-weight:bold;text-align:center}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🛒 くりねこらの通販サイト</h1>
+
+<label>Minecraft ID</label>
+<input id="mcid" placeholder="Minecraft ID">
+
+<label>座標</label>
+<input id="coords" placeholder="X Y Z">
+
+<label>アイテム</label>
+<select id="item">
+<option>ダイヤモンド - 60san</option>
+<option>花火1c - 400san</option>
+<option>経験値瓶1c - 500san</option>
+<option>金人参1c - 400san</option>
+<option>エメラルドブロック1c - 400san</option>
+</select>
+
+<label>個数</label>
+<input id="amount" type="number" min="1" value="1">
+
+<button onclick="sendOrder()">注文する</button>
+<div id="result"></div>
+</div>
+
+<script>
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1519519082586837039/_seEAZixIiSgT940eE5gIxrB9OJnCDeb6kW5Tsmr4hAk7gG2gwUwou83gqTFfNVgvWYM";
+
+async function sendOrder(){
+ const mcid=document.getElementById("mcid").value;
+ const coords=document.getElementById("coords").value;
+ const item=document.getElementById("item").value;
+ const amount=document.getElementById("amount").value;
+
+ document.getElementById("result").innerText="✅ 注文完了！";
+
+ if(WEBHOOK_URL==="ここにDiscordWebhookURL") return;
+
+ await fetch(WEBHOOK_URL,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+     content:`📦新規注文\nID:${mcid}\n座標:${coords}\n商品:${item}\n個数:${amount}`
+   })
+ });
+}
+</script>
+</body>
+</html>
